@@ -4,4 +4,4 @@
  ----------------
  
  - Jebali Ala Eddine ( team lead ) 
- - Abdelatif Skalli ( code review )
+ - Abdelatif Skalli ( code reviewer )
