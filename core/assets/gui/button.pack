@@ -1,0 +1,40 @@
+
+button.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+button_pressed
+  rotate: false
+  xy: 0, 9
+  size: 9, 9
+  split: 2, 2, 2, 2
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+button_up
+  rotate: false
+  xy: 0, 0
+  size: 9, 9
+  split: 1, 2, 1, 2
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+
+button2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+draw9patch/src/images/checker
+  rotate: false
+  xy: 0, 0
+  size: 480, 480
+  orig: 480, 480
+  offset: 0, 0
+  index: -1
+draw9patch/src/images/drop
+  rotate: false
+  xy: 480, 307
+  size: 173, 173
+  orig: 173, 173
+  offset: 0, 0
+  index: -1
