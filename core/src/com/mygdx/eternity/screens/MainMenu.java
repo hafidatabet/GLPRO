@@ -19,7 +19,7 @@ public class MainMenu implements Screen {
 	private Skin skin;
 	private Table table;
 	private TextButton buttonPlay, buttonExit;
-	private BitmapFont white;
+	private BitmapFont white, black;
 	private Label heading; 
 
 	@Override
@@ -41,17 +41,17 @@ public class MainMenu implements Screen {
 		
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		white = new BitmapFont(Gdx.files.internal("font/white.fnt"));
-		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		
+		black = new BitmapFont(Gdx.files.internal("font/black.fnt"), false);
+		
+		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.getDrawable("button_up");
 		textButtonStyle.down = skin.getDrawable("button_pressed");
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
-		textButtonStyle.font = white;
+		textButtonStyle.font = black;
 
 		buttonExit = new TextButton("EXIT", textButtonStyle);
-		
 		buttonExit.pad(20);
 		
 		table.add(buttonExit);
