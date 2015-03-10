@@ -27,13 +27,16 @@ public class MainMenu implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		
 		stage.act(delta);
 		stage.draw();
 	}
 	
-	@Override
+	@Override			
 	public void show() {
 		stage = new Stage();
+		
+		Gdx.input.setInputProcessor(stage);
 		
 		atlas = new TextureAtlas("gui/button.pack");
 		skin = new Skin(atlas);
@@ -55,7 +58,7 @@ public class MainMenu implements Screen {
 		buttonExit.pad(20);
 		
 		table.add(buttonExit);
-		table.debug();
+		// table.debug(); 
 		stage.addActor(table);
 		
 	}
