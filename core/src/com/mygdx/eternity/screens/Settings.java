@@ -73,7 +73,7 @@ public class Settings implements Screen {
 		vSyncCheckBox.getCells().get(0).size(30, 30);
 
 		final TextField levelDirectoryInput = new TextField(levelDirectory().path(), skin); // creating a new TextField with the current level directory already written in it
-		levelDirectoryInput.setMessageText("level directory"); // set the text to be shown when nothing is in the TextField
+		levelDirectoryInput.setMessageText("Config directory"); // set the text to be shown when nothing is in the TextField
 
 		final TextButton back = new TextButton("BACK", skin, "small");
 		back.pad(10);
@@ -120,7 +120,7 @@ public class Settings implements Screen {
 		// putting everything in the table
 		table.add(new Label("SETTINGS", skin, "big")).spaceBottom(200).colspan(3).expandX().row();
 		table.add();
-		table.add("level directory").spaceBottom(20);
+		table.add("Config directory").spaceBottom(20);
 		table.add().row();
 		table.add(vSyncCheckBox).top().expandY().spaceRight(10);
 		table.add(levelDirectoryInput).top().fillX();

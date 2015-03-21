@@ -40,14 +40,33 @@ public class Levels implements Screen {
 		table.setFillParent(true);
 		// table.debug();
 		
-		heading = new Label("Configuration", skin, "big");
+		heading = new Label("Main Menue", skin, "big");
 		
 		list = new List<String>(skin);
-		list.setItems(new String[] { "one", "two", "tree", "and", "so", "on" });
+		list.setItems(new String[] { "Start EternityII", "Tutorial", "Credit" });
 		
 		scrollPane = new ScrollPane(list, skin);
 		
-		play = new TextButton("Play", skin);
+		play = new TextButton("Select", skin);
+		play.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				switch (list.getSelectedIndex()) {
+				case 0 :
+					((Game) Gdx.app.getApplicationListener()).setScreen(new MainGame());
+					break;
+				case 1 :
+					((Game) Gdx.app.getApplicationListener()).setScreen(new Tutorial());
+					break;
+				case 2 :
+					((Game) Gdx.app.getApplicationListener()).setScreen(new Credit());
+					break;	
+
+				default:
+					break;
+				}
+			}
+		});
 		play.pad(10);
 		back = new TextButton("Back", skin, "small");
 		back.addListener(new ClickListener() {

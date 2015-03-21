@@ -62,7 +62,7 @@ public class MainMenu implements Screen {
 		
 		// create heading
 		
-		heading = new Label("Main Menu", skin, "big");
+		heading = new Label("Eternity II GLPRO", skin, "big");
 		heading.setFontScale(1);
 		
 
