@@ -1,7 +1,12 @@
 package com.mygdx.eternity.screens;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Game;
@@ -34,9 +39,9 @@ public class MainMenu implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		tweenManager.update(delta);
 		stage.act(delta);
 		stage.draw();
+		tweenManager.update(delta);
 	}
 	
 	@Override			
@@ -45,7 +50,7 @@ public class MainMenu implements Screen {
 		
 		Gdx.input.setInputProcessor(stage);
 		
-		atlas = new TextureAtlas("gui/button.pack");
+		atlas = new TextureAtlas("gui/atlas.pack");
 		skin = new Skin(Gdx.files.internal("gui/MenuSkin.json"), atlas);
 		
 		
@@ -57,7 +62,7 @@ public class MainMenu implements Screen {
 		
 		// create heading
 		
-		heading = new Label("Main Menu", skin);
+		heading = new Label("Main Menu", skin, "big");
 		heading.setFontScale(1);
 		
 
@@ -66,21 +71,57 @@ public class MainMenu implements Screen {
 		
 		buttonPlay = new TextButton("Play", skin);
 		buttonPlay.addListener(new ClickListener() {
+
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new Levels());
+				stage.addAction(sequence(moveTo(0, -stage.getHeight(), .5f), run(new Runnable() {
+
+					@Override
+					public void run() {
+						((Game) Gdx.app.getApplicationListener()).setScreen(new Levels());
+					}
+				})));
 			}
-		});	
-		buttonPlay.pad(18);
+		});
+		
+		buttonPlay.pad(20);
+		
+		TextButton buttonSettings = new TextButton("SETTINGS", skin, "small");
+		buttonSettings.addListener(new ClickListener() {
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				stage.addAction(sequence(moveTo(0, -stage.getHeight(), .5f), run(new Runnable() {
+
+					@Override
+					public void run() {
+						((Game) Gdx.app.getApplicationListener()).setScreen(new Settings());
+					}
+				})));
+			}
+		});
+		buttonSettings.pad(10);
+
 		
 		buttonExit = new TextButton("EXIT", skin);
 		buttonExit.addListener(new ClickListener() {
+
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.exit();
+				Timeline.createParallel().beginParallel()
+						.push(Tween.to(table, ActorAaccessor.ALPHA, .75f).target(0))
+						.push(Tween.to(table, ActorAaccessor.Y, .75f).target(table.getY() - 50)
+								.setCallback(new TweenCallback() {
+
+									@Override
+									public void onEvent(int type, BaseTween<?> source) {
+										Gdx.app.exit();
+									}
+								}))
+						.end().start(tweenManager);
 			}
 		});
-		buttonExit.pad(15);
+		buttonExit.pad(17);
 		
 		
 		// putting stuff together
@@ -90,7 +131,10 @@ public class MainMenu implements Screen {
 		table.add(buttonPlay);
 		table.getCell(buttonPlay).spaceBottom(20);
 		table.row();
+		table.add(buttonSettings).spaceBottom(20).row();
 		table.add(buttonExit);
+		
+		
 		//table.debug(); 
 		stage.addActor(table);
 		
@@ -122,20 +166,22 @@ public class MainMenu implements Screen {
 		Tween.from(table, ActorAaccessor.ALPHA, .5f).target(0);
 		Tween.from(table, ActorAaccessor.Y, .5f).target(Gdx.graphics.getHeight() / 8).start(tweenManager);
 		
+		tweenManager.update(Float.MIN_VALUE);
+		
 	}
 
 
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height);
-		table.setFillParent(true);
+		table.invalidateHierarchy();
 		
 		
 	}
 
 	@Override
 	public void pause() {
-
+		
 	}
 
 	@Override
@@ -145,7 +191,7 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void hide() {
-
+		dispose();
 	}
 
 	@Override

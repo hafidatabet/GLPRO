@@ -34,6 +34,10 @@ public class Splash implements Screen {
 	
 	@Override
 	public void show() {
+		
+		// apply preferences
+		Gdx.graphics.setVSync(Settings.vSync());
+		
 		batch = new SpriteBatch();
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccesor());
@@ -71,7 +75,7 @@ public class Splash implements Screen {
 
 	@Override
 	public void hide() {
-		
+		dispose();
 	}
 
 	@Override
