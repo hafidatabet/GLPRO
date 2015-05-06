@@ -2,7 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.eternity.screens.MainGame;
 import com.mygdx.eternity.screens.Splash;
+import com.mygdx.eternity.screens.Tutorial;
 
 public class EternityII extends Game {
 	SpriteBatch batch;
