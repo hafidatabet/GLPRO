@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.eternity.gui.JPiece;
+import com.mygdx.eternity.io.PiecesDao;
+import com.mygdx.eternity.puzzchar.Piece;
 
 public class MainGame implements Screen {
 	
@@ -25,6 +28,7 @@ public class MainGame implements Screen {
 	private ScrollPane scrollPane;
 	private TextButton play, back;
 	private Label heading;
+	private JPiece jpiece = null;
 	
 
 	@Override
@@ -56,10 +60,21 @@ public class MainGame implements Screen {
 		});
 		back.pad(10);
 		
+		PiecesDao piece = new PiecesDao();
+		java.util.List<Piece> pieces = null;
+	    try {
+			 pieces = piece.findPieces();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    jpiece = new JPiece(pieces.get(0));
+		
 		// putting  stuff together
 		table.add(heading).colspan(3).expandX().spaceBottom(50).row();;
 		table.add(scrollPane).uniformX().expandY().top().left();
-		// table.add(play).uniformX();
+		table.add(jpiece).uniformX();
 		table.add(back).uniformX().bottom().right();
 		stage.addActor(table);
 

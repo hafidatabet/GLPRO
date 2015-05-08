@@ -23,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Selection;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.Select;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class Tutorial implements Screen {
 	
