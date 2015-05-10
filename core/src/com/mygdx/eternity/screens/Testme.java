@@ -1,4 +1,9 @@
-package com.mygdx.eternity.io;
+/**
+ * 
+ */
+package com.mygdx.eternity.screens;
+
+
 
 import java.awt.Dimension;
 import java.util.List;
@@ -7,10 +12,12 @@ import javax.swing.JFrame;
 
 import com.mygdx.eternity.puzzchar.Piece;
 import com.mygdx.eternity.gui.JPiece;
+import com.mygdx.eternity.io.PiecesDao;
 
-public class PieceDrawTest {
+public class Testme {
 
-  public static void main(String... args) throws Exception {
+	Testme () throws Exception {
+		
     JFrame frame = new JFrame();
     JPiece jpiece = null;
     
@@ -24,12 +31,18 @@ public class PieceDrawTest {
     Piece piece = new Piece(1, f0, f1, f2, f3, Orientation.SOUTH).rotateClockwise().rotateClockwise();*/
     
     PiecesDao piece = new PiecesDao();
-    List<Piece> pieces = piece.findPieces();
+    List<Piece> pieces = null;
+	try {
+		pieces = piece.findPieces();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     
     
      
 	
-	jpiece = new JPiece(pieces.get(3));
+	jpiece = new JPiece(pieces.get(0));
     
     jpiece.setPreferredSize(new Dimension(200, 200));
     frame.setContentPane(jpiece);
@@ -38,3 +51,4 @@ public class PieceDrawTest {
     frame.setVisible(true);
   }
 }
+
