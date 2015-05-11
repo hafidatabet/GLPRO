@@ -1,21 +1,27 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.eternity.screens.MainGame;
-import com.mygdx.eternity.screens.MainMenu;
-import com.mygdx.eternity.screens.Splash;
-import com.mygdx.eternity.screens.Tutorial;
+import com.mygdx.eternity.screens.InventoryScreen;
+
 
 public class EternityII extends Game {
 	SpriteBatch batch;
 	// Texture img;
 	public final static String TITLE = "Eternity II", VERSION = "0.0.0.0.reallyEarly";
 	
+
+	
 	@Override
-	public void create () {
-		setScreen(new MainMenu());
+	public void create () {	
+		
+		
+		setScreen(new InventoryScreen());
+		
 	}
+	
 
 	@Override
 	public void render () {

@@ -21,23 +21,51 @@
  */
 package com.mygdx.eternity.puzzchar;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+
 /**
  * @author Daniel Holderbaum
  */
-public enum Item {
+public class SlotTooltip extends Window implements SlotListener {
 
-	CRYSTAL_RED("redcrystal"), CRYSTAL_BLUE("bluecrystal"), CRYSTAL_GREEN("greencrystal"), CRYSTAL_YELLOW("yellowcrystal"), CRYSTAL_MAGENTA("magentacrystal"), CRYSTAL_CYAN(
-			"cyancrystal"), CRYSTAL_ORANGE("orangecrystal"), CRYSTAL_VIOLET("violetcrystal"), TITANIUM("titanium"), PALLADIUM("palladium"), IRIDIUM("iridium"), RHODIUM("rhodium"), HULL(
-			"hullbase"), CANNON("cannonbase"), RAY("raybase"), LAUNCHER("launcherbase"), DROID("droidbase"), MINE("dropperbase"), BATTERY("batterybase");
+	private Skin skin;
 
-	private String textureRegion;
+	private Slot slot;
 
-	private Item(String textureRegion) {
-		this.textureRegion = textureRegion;
+	public SlotTooltip(Slot slot, Skin skin) {
+		super("Tooltip...", skin);
+		this.slot = slot;
+		this.skin = skin;
+		hasChanged(slot);
+		slot.addListener(this);
+		setVisible(false);
 	}
 
-	public String getTextureRegion() {
-		return textureRegion;
+	@Override
+	public void hasChanged(Slot slot) {
+		if (slot.isEmpty()) {
+			setVisible(false);
+			return;
+		}
+
+		// title displays the amount
+		setTitle(slot.getAmount() + "x " + slot.getItem());
+		clear();
+		Label label = new Label("Super awesome description of " + slot.getItem(), skin);
+		add(label);
+		pack();
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		// the listener sets this to true in case the slot is hovered
+		// however, we don't want that in case the slot is empty
+		if (slot.isEmpty()) {
+			super.setVisible(false);
+		}
 	}
 
 }

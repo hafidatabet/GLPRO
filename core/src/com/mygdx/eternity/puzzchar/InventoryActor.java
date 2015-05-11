@@ -21,23 +21,44 @@
  */
 package com.mygdx.eternity.puzzchar;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+
 /**
  * @author Daniel Holderbaum
  */
-public enum Item {
+public class InventoryActor extends Window {
 
-	CRYSTAL_RED("redcrystal"), CRYSTAL_BLUE("bluecrystal"), CRYSTAL_GREEN("greencrystal"), CRYSTAL_YELLOW("yellowcrystal"), CRYSTAL_MAGENTA("magentacrystal"), CRYSTAL_CYAN(
-			"cyancrystal"), CRYSTAL_ORANGE("orangecrystal"), CRYSTAL_VIOLET("violetcrystal"), TITANIUM("titanium"), PALLADIUM("palladium"), IRIDIUM("iridium"), RHODIUM("rhodium"), HULL(
-			"hullbase"), CANNON("cannonbase"), RAY("raybase"), LAUNCHER("launcherbase"), DROID("droidbase"), MINE("dropperbase"), BATTERY("batterybase");
+	public InventoryActor(Inventory inventory, DragAndDrop dragAndDrop, Skin skin) {
+		super("Inventory...", skin);
 
-	private String textureRegion;
+		TextButton closeButton = new TextButton("X", skin);
+		closeButton.addListener(new HidingClickListener(this));
+		getButtonTable().add(closeButton).height(getPadTop());
 
-	private Item(String textureRegion) {
-		this.textureRegion = textureRegion;
-	}
+		setPosition(400, 100);
+		defaults().space(8);
+		row().fill().expandX();
 
-	public String getTextureRegion() {
-		return textureRegion;
+		int i = 0;
+		for (Slot slot : inventory.getSlots()) {
+			SlotActor slotActor = new SlotActor(skin, slot);
+			dragAndDrop.addSource(new SlotSource(slotActor));
+			dragAndDrop.addTarget(new SlotTarget(slotActor));
+			add(slotActor);
+
+			i++;
+			if (i % 5 == 0) {
+				row();
+			}
+		}
+
+		pack();
+
+		// it is hidden by default
+		setVisible(false);
 	}
 
 }

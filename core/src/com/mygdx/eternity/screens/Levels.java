@@ -59,7 +59,7 @@ public class Levels implements Screen {
 					((Game) Gdx.app.getApplicationListener()).setScreen(new Tutorial());
 					break;
 				case 2 :
-					((Game) Gdx.app.getApplicationListener()).setScreen(new Credit());
+					((Game) Gdx.app.getApplicationListener()).setScreen(new InventoryScreen());
 					break;	
 
 				default:

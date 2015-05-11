@@ -21,23 +21,39 @@
  */
 package com.mygdx.eternity.puzzchar;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 /**
+ * Its only purpose is to hide a given actor on click.
+ * 
  * @author Daniel Holderbaum
  */
-public enum Item {
+public class HidingClickListener extends ClickListener {
 
-	CRYSTAL_RED("redcrystal"), CRYSTAL_BLUE("bluecrystal"), CRYSTAL_GREEN("greencrystal"), CRYSTAL_YELLOW("yellowcrystal"), CRYSTAL_MAGENTA("magentacrystal"), CRYSTAL_CYAN(
-			"cyancrystal"), CRYSTAL_ORANGE("orangecrystal"), CRYSTAL_VIOLET("violetcrystal"), TITANIUM("titanium"), PALLADIUM("palladium"), IRIDIUM("iridium"), RHODIUM("rhodium"), HULL(
-			"hullbase"), CANNON("cannonbase"), RAY("raybase"), LAUNCHER("launcherbase"), DROID("droidbase"), MINE("dropperbase"), BATTERY("batterybase");
+	private Actor actor;
 
-	private String textureRegion;
-
-	private Item(String textureRegion) {
-		this.textureRegion = textureRegion;
+	public HidingClickListener(Actor actor) {
+		this.actor = actor;
+	}
+	
+	@Override
+	public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
+		Window window = (Window) actor;
+		window.setMovable(false);
+	}
+	
+	@Override
+	public void exit (InputEvent event, float x, float y, int pointer, Actor toActor) {
+		Window window = (Window) actor;
+		window.setMovable(true);
 	}
 
-	public String getTextureRegion() {
-		return textureRegion;
+	@Override
+	public void clicked(InputEvent event, float x, float y) {
+		actor.setVisible(false);
 	}
 
 }
