@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.eternity.screens.InventoryScreen;
+import com.mygdx.eternity.screens.Splash;
 
 
 public class EternityII extends Game {
@@ -18,7 +19,7 @@ public class EternityII extends Game {
 	public void create () {	
 		
 		
-		setScreen(new InventoryScreen());
+		setScreen(new Splash());
 		
 	}
 	
